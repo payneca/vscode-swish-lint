@@ -1,0 +1,95 @@
+{
+  "name": "swish-lint",
+  "displayName": "Swish-Lint",
+  "description": "This extension integrates the Swish-Lint language server with VSCode.",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/payneca/vscode-swish-lint.git"
+  },
+  "publisher": "payneca",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Linters",
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:scheme"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "scheme",
+        "extensions": [
+          ".ms",
+          ".ss"
+        ],
+        "aliases": [
+          "Scheme",
+          "Swish",
+          "chezscheme"
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "swish-lint.restart",
+        "title": "Restart Server",
+        "category": "Swish-Lint"
+      },
+      {
+        "command": "swish-lint.indentLine",
+        "title": "Indent Line",
+        "category": "Swish-Lint"
+      }
+    ],
+    "configuration": {
+      "title": "Swish-Lint",
+      "properties": {
+        "swish-lint.path": {
+          "type": "string",
+          "default": "swish-lint",
+          "description": "Path to the swish-lint executable."
+        },
+        "swish-lint.args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "--lsp"
+          ],
+          "description": "Arguments passed to swish-lint to start the language server."
+        },
+        "swish-lint.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between VS Code and the swish-lint language server."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.82.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.4.0"
+  }
+}
